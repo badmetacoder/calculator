@@ -3,7 +3,6 @@
 
 import argparse
 import calculator
-import sys
 
 # parse arguments
 
@@ -19,4 +18,4 @@ c = calculator.simple.SimpleCalculator()
 if __name__ == "__main__":
     c.run(args.s)
     for i in c.h:
-        print i
+        print str(i)
