@@ -189,8 +189,3 @@ class SimpleCalculator():
 
                 except:
                     self.ignore(c)
-
-    def result(self):
-        """Return the result of the computations."""
-
-        return str(self.h[-1:])
