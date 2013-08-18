@@ -26,6 +26,8 @@ If you want to implement Calculator as a RESTful API, install [TornadoWeb](http:
 
     $ curl -X POST http://localhost:8888/v1/calculate -d '1 + 2 / 6 acv 1 + 1 / 33 fmod 0.01 1 2 3 4'
 
+You can easily extend this calculator to support any number of one- and two-argument functions, search calculator/simple.py for `fmod` and `ceil` to see what modifications you need to make.
+
 Why?
 ----
 
