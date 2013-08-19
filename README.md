@@ -31,7 +31,7 @@ You can easily extend this calculator to support any number of one- and two-argu
 Why?
 ----
 
-I got asked to provide samples of my work, proof I know Python, etc.  This project is way more than what I was sked to deliver, but I had more time to spare.
+I got asked to provide samples of my work, proof I know Python, etc.  This project is way more than what I was asked to deliver, but I had more time to spare.
 
 Who?
 ----
