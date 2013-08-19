@@ -96,7 +96,7 @@ class SimpleCalculator():
             elif self.op == '+':
                 self.r1 = self.r1 + self.r2
             elif self.op == '-':
-                self.r1 = self.r1 + self.r2
+                self.r1 = self.r1 - self.r2
             elif self.op == '*':
                 self.r1 = self.r1 * self.r2
             elif self.op == '/':
