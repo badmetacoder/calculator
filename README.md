@@ -18,14 +18,25 @@ Clone this repo and tests:
 
 All good?
 
-Usage
------
+Usage (in your script)
+-----------------------
 
-    import calculator
+ 1. Import `calculator`.
 
-    c = calculator.simple.SimpleCalculator()
+ 2. Instantiate `SimpleCalculator()`.
+
+ 3. Call `run()` with the list of values, operands, and functions you want to process.
+
+ 4. The history of operations, results, and unprocessed input is stored in `SimpleCalculator.log`.
+
+    from calculator.simple import SimpleCalculator
+
+    c = SimpleCalculator()
     c.run('1 + 1')
     print c.log
+
+Usage (on the command line)
+---------------------------
 
 Run:
 
@@ -38,10 +49,12 @@ then
 
 then
 
-
     $ ./simplecalculator.py -s "1 + 2 / 6 acv 1 + 1 / 33 fmod 0.01 1 2 3 4"
 
 This calculator is as forgiving as a simple desktop calculator, it will ignore what it does not know, try to compute what it can treating the given string as a list of keystrokes.  You may see one or more `status` entries after the last result, that's intended.
+
+Usage (via curl)
+----------------
 
 If you want to implement this alculator as a RESTful API, install [TornadoWeb](http://tornadoweb.org 'TornadoWeb') and run `tornadoweb.py', then use curl:
 
