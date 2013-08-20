@@ -7,60 +7,54 @@ import math
 class SimpleCalculator():
     """Simple calculator class."""
 
-
     two_arg_funcs = set(['+', '-', '*', '/', 'fmod'])
     one_arg_funcs = set(['ceil', 'fabs'])
 
     def __init__(self):
         """Intialize SimpleCalculator.
-
-        :param s: numbers.
-        :param v: verbosity.
         """
 
-        self.c()
+        self.clear()
 
-    def c(self):
+    def clear(self):
         """Reset calculator."""
 
         # initialize
 
         self.s = ""
-        self.sList = []
+        self.s_list = []
 
         # registers
 
         self.r1 = 0
-        self.r1Set = False
+        self.r1_set = False
 
         self.r2 = 0
-        self.r2Set = False
+        self.r2_set = False
 
         self.op = ""
 
         # history log
-        self.h = []
+        self.log = []
 
-        self.r = ""
-
-    def logInfo(self, s):
+    def log_info(self, s):
         """Log a message."""
 
-        self.h.append(s)
+        self.log.append(s)
 
-    def logState(self):
+    def log_state(self):
         """Log calculator state."""
 
         state = "state -> "
 
-        if self.r1Set:
+        if self.r1_set:
             state = "%s r1: %s" % (state, self.r1)
         if self.op:
             state = "%s op: %s" % (state, self.op)
-        if self.r2Set:
+        if self.r2_set:
             state = "%s r2: %s" % (state, self.r2)
 
-        self.logInfo(state)
+        self.log_info(state)
 
     def ignore(self, i):
         """Log something calculator ignored.
@@ -68,19 +62,19 @@ class SimpleCalculator():
         :param i: ignored chunk
         """
 
-        self.logInfo("ignored: %s" % str(i))
+        self.log_info("ignored: %s" % str(i))
 
     def compute(self):
         """Perform required computations."""
 
-        self.logState()
+        self.log_state()
 
-        if not self.r1Set:
+        if not self.r1_set:
             self.r1 = 'NaN'
-        if not self.r2Set:
+        if not self.r2_set:
             self.r2 = 'NaN'
 
-        self.logInfo("compute:")
+        self.log_info("compute:")
 
         try:
             if not self.op:
@@ -100,45 +94,45 @@ class SimpleCalculator():
             elif self.op == 'fmod':
                 self.r1 = math.fmod(self.r1, self.r2)
 
-            self.r2Set = False
+            self.r2_set = False
             self.op = ""
 
         except:
                 self.r1 = 'Error'
-                self.r1Set = False
-                self.r2Set = False
+                self.r1_set = False
+                self.r2_set = False
                 self.op = ""
 
-        self.logInfo("result: %s" % str(self.r1))
+        self.log_info("result: %s" % str(self.r1))
 
     def run(self, s):
 
         self.s = s
-        self.sList = s.split()
+        self.s_list = s.split()
 
-        self.logInfo("input string: %s" % self.s)
-        self.logInfo("input list: %s" % str(self.sList))
+        self.log_info("input string: %s" % self.s)
+        self.log_info("input list: %s" % str(self.s_list))
 
         while 1:
 
-            self.logState()
+            self.log_state()
 
-            if len(self.sList) == 0:
+            if len(self.s_list) == 0:
                 if not self.op:
                     break
                 else:
                     self.compute()
                     break
 
-            c = self.sList[0]
-            self.sList = self.sList[1:]
+            c = self.s_list[0]
+            self.s_list = self.s_list[1:]
 
             if c in self.two_arg_funcs:
 
-                if self.r1Set and not self.r2Set:
+                if self.r1_set and not self.r2_set:
                     self.op = c 
 
-                elif self.r1Set and self.r2Set:
+                elif self.r1_set and self.r2_set:
                     self.compute()
                     self.op = c
 
@@ -147,11 +141,11 @@ class SimpleCalculator():
 
             elif c in self.one_arg_funcs:
 
-                if self.r1Set and not self.r2Set:
+                if self.r1_set and not self.r2_set:
                     self.op = c
                     self.compute()
 
-                elif self.r1Set and self.r2Set:
+                elif self.r1_set and self.r2_set:
                     self.compute()
                     self.op = c
                     self.compute()
@@ -163,19 +157,19 @@ class SimpleCalculator():
                 try:
                     f = float(c)
 
-                    if self.r1Set and self.op and not self.r2Set:
+                    if self.r1_set and self.op and not self.r2_set:
                         self.r2 = f
-                        self.r2Set = True
+                        self.r2_set = True
 
-                    elif self.r1Set and self.op and self.r2Set:
+                    elif self.r1_set and self.op and self.r2_set:
                         self.compute()
                         self.r1 = f
-                        self.r1Set = True
-                        self.r2Set = False
+                        self.r1_set = True
+                        self.r2_set = False
 
                     else:
                         self.r1 = f
-                        self.r1Set = True
+                        self.r1_set = True
 
                 except:
                     self.ignore(c)
