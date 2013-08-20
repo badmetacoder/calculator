@@ -21,12 +21,11 @@ All good?
 Usage
 -----
 
-import calculator
+    import calculator
 
-c = calculator.simple.SimpleCalculator()
-
-c.run('1 + 1')
-print c.get_tape()
+    c = calculator.simple.SimpleCalculator()
+    c.run('1 + 1')
+    print c.log
 
 Run:
 
