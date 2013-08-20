@@ -29,6 +29,7 @@ Usage (in your script)
 
  4. The history of operations, results, and unprocessed input is stored in `SimpleCalculator.log`.
 
+Here's a short sample:
 
     from calculator.simple import SimpleCalculator
 
