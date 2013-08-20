@@ -3,6 +3,10 @@ Calculator
 
 A simple calculator library.
 
+This module is now a Python package. You can install it using:
+
+    $ sudo pip install simplecalculator
+
 Examples of usage:
 
  * `simplecalculator.py` -- a command-line utility
@@ -36,6 +40,10 @@ Here's a short sample:
     c = SimpleCalculator()
     c.run('1 + 1')
     print c.log
+
+If you want to read the state of the LCD (no kidding!), use
+
+    print c.lcd
 
 Usage (on the command line)
 ---------------------------

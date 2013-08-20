@@ -13,8 +13,8 @@ recent state of the LCD display is stored in SimpleCalculator.lcd.
 """
 
 __title__ = 'calculator'
-__version__ = '0.0.2'
-__build__ = 0x000002
+__version__ = '0.0.3'
+__build__ = 0x000003
 __author__ = 'Jacek Artymiak'
 __license__ = 'The BSD 3-Clause License'
 __copyright__ = 'Copyright 2013 Jacek Artymiak'
