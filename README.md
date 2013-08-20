@@ -40,11 +40,6 @@ If you want to implement this alculator as a RESTful API, install [TornadoWeb](h
 
 You can easily extend this calculator to support any number of one- and two-argument functions, search calculator/simple.py for `fmod` and `ceil` to see what modifications you need to make.
 
-Testing
--------
-
-This calculator comes with its own test suite. Try it:
-
 Why?
 ----
 
