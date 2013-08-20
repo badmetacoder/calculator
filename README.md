@@ -21,13 +21,14 @@ All good?
 Usage (in your script)
 -----------------------
 
- 1. Import `calculator`.
+ 1. Import `calculator`
 
- 2. Instantiate `SimpleCalculator()`.
+ 2. Instantiate `SimpleCalculator()`
 
  3. Call `run()` with the list of values, operands, and functions you want to process.
 
  4. The history of operations, results, and unprocessed input is stored in `SimpleCalculator.log`.
+
 
     from calculator.simple import SimpleCalculator
 
