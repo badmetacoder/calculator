@@ -3,7 +3,6 @@
 # Simple calculator library
 
 import math
-import sys
 
 class SimpleCalculator():
     """Simple calculator class."""
