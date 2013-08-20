@@ -18,6 +18,11 @@ develop-eggs
 lib
 lib64
 __pycache__
+*.tar
+*.tar.gz
+*.gz
+*.zip
+*.gzip
 
 # Installer logs
 pip-log.txt
