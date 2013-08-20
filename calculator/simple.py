@@ -37,23 +37,19 @@ class SimpleCalculator():
         # history log
         self.log = []
 
+        # LCD status
+        self.lcd = "0"
+
     def log_info(self, s):
         """Log a message."""
 
         self.log.append(s)
+        self.lcd = self.r1
 
     def log_state(self):
         """Log calculator state."""
 
-        state = "state -> "
-
-        if self.r1_set:
-            state = "%s r1: %s" % (state, self.r1)
-        if self.op:
-            state = "%s op: %s" % (state, self.op)
-        if self.r2_set:
-            state = "%s r2: %s" % (state, self.r2)
-
+        state = "state -> r1: %s, op: %s, r2: %s" % (self.r1, self.op, self.r2)
         self.log_info(state)
 
     def ignore(self, i):
@@ -103,6 +99,7 @@ class SimpleCalculator():
                 self.r2_set = False
                 self.op = ""
 
+        self.log_state()
         self.log_info("result: %s" % str(self.r1))
 
     def run(self, s):
@@ -139,6 +136,8 @@ class SimpleCalculator():
                 else:
                     self.ignore(c)
 
+                #self.log_state()
+
             elif c in self.one_arg_funcs:
 
                 if self.r1_set and not self.r2_set:
@@ -152,6 +151,8 @@ class SimpleCalculator():
 
                 else:
                     self.ignore(c)
+
+                #self.log_state()
 
             else:
                 try:
@@ -171,5 +172,9 @@ class SimpleCalculator():
                         self.r1 = f
                         self.r1_set = True
 
+                    #self.log_state()
+
                 except:
                     self.ignore(c)
+
+                    #self.log_state()

@@ -41,6 +41,10 @@ Here's a short sample:
     c.run('1 + 1')
     print c.log
 
+If you want to read the state of the LCD (no kidding!), use
+
+    print c.lcd
+
 Usage (on the command line)
 ---------------------------
 

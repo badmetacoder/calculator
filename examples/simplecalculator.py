@@ -17,5 +17,8 @@ c = calculator.simple.SimpleCalculator()
 
 if __name__ == "__main__":
     c.run(args.s)
+    print "TAPE:"
     for i in c.log:
         print str(i)
+
+    print "LCD:\n%s" % c.lcd
