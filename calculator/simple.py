@@ -8,21 +8,9 @@ import sys
 class SimpleCalculator():
     """Simple calculator class."""
 
-    s = ""
-    sList = []
 
-    # registers
-
-    r1 = 0
-    r1Set = False
-
-    r2 = 0
-    r2Set = False
-
-    op = ""
-
-    # history log
-    h = []
+    two_arg_funcs = set(['+', '-', '*', '/', 'fmod'])
+    one_arg_funcs = set(['ceil', 'fabs'])
 
     def __init__(self):
         """Intialize SimpleCalculator.
@@ -56,44 +44,47 @@ class SimpleCalculator():
 
         self.r = ""
 
-    def ignore(self, i):
-        """Log something calculator ignored.
+    def logInfo(self, s):
+        """Log a message."""
 
-        :param i: ignored chunk
-        """
-
-        self.h.append("ignored: %s" % str(i))
+        self.h.append(s)
 
     def logState(self):
         """Log calculator state."""
 
         state = "state -> "
 
-        #if self.r1Set == True:
         if self.r1Set:
             state = "%s r1: %s" % (state, self.r1)
-        if self.op != "":
+        if self.op:
             state = "%s op: %s" % (state, self.op)
-        #if self.r2Set == True:
         if self.r2Set:
             state = "%s r2: %s" % (state, self.r2)
 
-        self.h.append(state)
+        self.logInfo(state)
+
+    def ignore(self, i):
+        """Log something calculator ignored.
+
+        :param i: ignored chunk
+        """
+
+        self.logInfo("ignored: %s" % str(i))
 
     def compute(self):
         """Perform required computations."""
 
         self.logState()
 
-        if self.r1Set == False:
+        if not self.r1Set:
             self.r1 = 'NaN'
-        if self.r2Set == False:
+        if not self.r2Set:
             self.r2 = 'NaN'
 
-        self.h.append("compute:")
+        self.logInfo("compute:")
 
         try:
-            if self.op == '':
+            if not self.op:
                 pass
             elif self.op == '+':
                 self.r1 = self.r1 + self.r2
@@ -119,22 +110,22 @@ class SimpleCalculator():
                 self.r2Set = False
                 self.op = ""
 
-        self.h.append("result: %s" % str(self.r1))
+        self.logInfo("result: %s" % str(self.r1))
 
     def run(self, s):
 
         self.s = s
         self.sList = s.split()
 
-        self.h.append("input string: %s" % self.s)
-        self.h.append("input list: %s" % str(self.sList))
+        self.logInfo("input string: %s" % self.s)
+        self.logInfo("input list: %s" % str(self.sList))
 
         while 1:
 
             self.logState()
 
             if len(self.sList) == 0:
-                if self.op == "":
+                if not self.op:
                     break
                 else:
                     self.compute()
@@ -143,27 +134,25 @@ class SimpleCalculator():
             c = self.sList[0]
             self.sList = self.sList[1:]
 
-            # math functions that take two arguments
-            if c in ['+', '-', '*', '/', 'fmod']:
+            if c in self.two_arg_funcs:
 
-                if (self.r1Set == True) and (self.r2Set == False):
+                if self.r1Set and not self.r2Set:
                     self.op = c 
 
-                elif (self.r1Set == True) and (self.r2Set == True):
+                elif self.r1Set and self.r2Set:
                     self.compute()
                     self.op = c
 
                 else:
                     self.ignore(c)
 
-            # math functions that take one argument
-            elif c in ['ceil', 'fabs']:
+            elif c in self.one_arg_funcs:
 
-                if (self.r1Set == True) and (self.r2Set == False):
+                if self.r1Set and not self.r2Set:
                     self.op = c
                     self.compute()
 
-                elif (self.r1Set == True) and (self.r2Set == True):
+                elif self.r1Set and self.r2Set:
                     self.compute()
                     self.op = c
                     self.compute()
@@ -175,11 +164,11 @@ class SimpleCalculator():
                 try:
                     f = float(c)
 
-                    if (self.r1Set == True) and (self.op != "") and (self.r2Set == False):
+                    if self.r1Set and self.op and not self.r2Set:
                         self.r2 = f
                         self.r2Set = True
 
-                    elif (self.r1Set == True) and (self.op != "") and (self.r2Set == True):
+                    elif self.r1Set and self.op and self.r2Set:
                         self.compute()
                         self.r1 = f
                         self.r1Set = True
