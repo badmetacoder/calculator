@@ -8,7 +8,7 @@ class CalculateHandler(tornado.web.RequestHandler):
 
         try:
             c.run(self.request.body)
-            for i in c.h:
+            for i in c.log:
                 self.write("%s\n" % str(i).encode('utf-8'))
 
         except Exception as e:

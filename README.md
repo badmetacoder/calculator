@@ -18,6 +18,16 @@ Clone this repo and tests:
 
 All good?
 
+Usage
+-----
+
+import calculator
+
+c = calculator.simple.SimpleCalculator()
+
+c.run('1 + 1')
+print c.get_tape()
+
 Run:
 
     $ ./simplecalculator.py -s "1 + 2 / 6 acv 1 + 1 / 33 fmod 0.01"

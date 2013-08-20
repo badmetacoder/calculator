@@ -17,5 +17,5 @@ c = calculator.simple.SimpleCalculator()
 
 if __name__ == "__main__":
     c.run(args.s)
-    for i in c.h:
+    for i in c.log:
         print str(i)
