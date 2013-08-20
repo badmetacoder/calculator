@@ -14,7 +14,7 @@ How?
 
 Clone this repo and tests:
 
-    $ python -m unittest test.TestSimpleCalculator
+    $ python -m unittest test
 
 All good?
 
