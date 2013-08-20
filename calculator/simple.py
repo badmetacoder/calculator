@@ -69,11 +69,13 @@ class SimpleCalculator():
 
         state = "state -> "
 
-        if self.r1Set == True:
+        #if self.r1Set == True:
+        if self.r1Set:
             state = "%s r1: %s" % (state, self.r1)
         if self.op != "":
             state = "%s op: %s" % (state, self.op)
-        if self.r2Set == True:
+        #if self.r2Set == True:
+        if self.r2Set:
             state = "%s r2: %s" % (state, self.r2)
 
         self.h.append(state)

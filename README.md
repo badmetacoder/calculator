@@ -28,6 +28,13 @@ If you want to implement Calculator as a RESTful API, install [TornadoWeb](http:
 
 You can easily extend this calculator to support any number of one- and two-argument functions, search calculator/simple.py for `fmod` and `ceil` to see what modifications you need to make.
 
+Testing
+-------
+
+This calculator comes with its own test suite. Try it:
+
+    $ python -m unittest test.TestSimpleCalculator
+
 Why?
 ----
 
