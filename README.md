@@ -3,6 +3,10 @@ Calculator
 
 A simple calculator library.
 
+This module is now a Python package. You can install it using:
+
+    $ sudo pip install simplecalculator
+
 Examples of usage:
 
  * `simplecalculator.py` -- a command-line utility
