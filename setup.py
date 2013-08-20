@@ -1,5 +1,5 @@
 from distutils.core import setup
-setup(name='calculator',
+setup(name='simplecalculator',
       description='A simple calculator library.',
       author='Jacek Artymiak',
       author_email='jacek@artymiak.com',
