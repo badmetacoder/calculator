@@ -8,7 +8,7 @@ class SimpleCalculator():
     """Simple calculator class."""
 
     two_arg_funcs = set(['+', '-', '*', '/', 'fmod'])
-    one_arg_funcs = set(['ceil', 'fabs'])
+    one_arg_funcs = set(['abs', 'ceil', 'fabs'])
 
     def __init__(self):
         """Intialize SimpleCalculator.
@@ -83,6 +83,8 @@ class SimpleCalculator():
                 self.r1 = self.r1 * self.r2
             elif self.op == '/':
                 self.r1 = self.r1 / self.r2
+            elif self.op == 'abs':
+                self.r1 = abs(self.r1)
             elif self.op == 'ceil':
                 self.r1 = math.ceil(self.r1)
             elif self.op == 'fabs':

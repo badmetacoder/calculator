@@ -99,5 +99,30 @@ class TestSimpleCalculatorMix(unittest.TestCase):
         self.c.run("1 + 2 / 6 acv 1 + 1 / 33 fmod 0.01 1 2 3 4")
         self.assertEqual(self.c.lcd, 4.0)
 
+class TestSimpleCalculatorAbs(unittest.TestCase):
+
+    def setUp(self):
+        self.c = calculator.simple.SimpleCalculator()
+
+    def test_abs_000(self):
+        self.c.clear()
+        self.c.run('1 abs')
+        self.assertEqual(self.c.lcd, 1.0)
+
+    def test_abs_001(self):
+        self.c.clear()
+        self.c.run('-1 abs')
+        self.assertEqual(self.c.lcd, 1.0)
+
+    def test_abs_002(self):
+        self.c.clear()
+        self.c.run('0 abs')
+        self.assertNotEqual(self.c.lcd, 1.0)
+
+    def test_abs_003(self):
+        self.c.clear()
+        self.c.run('-2 abs - 2')
+        self.assertNotEqual(self.c.lcd, -1.0)
+
 if __name__ == '__main__':
     unittest.main()
