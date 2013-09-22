@@ -1,18 +1,31 @@
 # -*- coding: utf-8 -*-
 
+"""Simple calculator.
+"""
+
 # Simple calculator library
 
 import math
 
+
 class SimpleCalculator():
     """Simple calculator class."""
-
-    two_arg_funcs = set(['+', '-', '*', '/', 'fmod'])
-    one_arg_funcs = set(['abs', 'ceil', 'fabs'])
 
     def __init__(self):
         """Intialize SimpleCalculator.
         """
+
+        self.two_arg_funcs = set(['+', '-', '*', '/', 'fmod'])
+        self.one_arg_funcs = set(['abs', 'ceil', 'fabs'])
+        self.raw_str = ""
+        self.operand = ""
+        self.log = []
+        self.s_list = []
+        self.lcd = 0
+        self.reg_1 = 0
+        self.reg_2 = 0
+        self.reg_1_set = False
+        self.reg_2_set = False
 
         self.clear()
 
@@ -21,18 +34,17 @@ class SimpleCalculator():
 
         # initialize
 
-        self.s = ""
+        self.raw_str = ""
         self.s_list = []
 
         # registers
 
-        self.r1 = 0
-        self.r1_set = False
+        self.reg_1 = 0
+        self.reg_1_set = False
+        self.reg_2 = 0
+        self.reg_2_set = False
 
-        self.r2 = 0
-        self.r2_set = False
-
-        self.op = ""
+        self.operand = ""
 
         # history log
         self.log = []
@@ -40,16 +52,17 @@ class SimpleCalculator():
         # LCD status
         self.lcd = "0"
 
-    def log_info(self, s):
+    def log_info(self, message):
         """Log a message."""
 
-        self.log.append(s)
-        self.lcd = self.r1
+        self.log.append(message)
+        self.lcd = self.reg_1
 
     def log_state(self):
         """Log calculator state."""
 
-        state = "state -> r1: %s, op: %s, r2: %s" % (self.r1, self.op, self.r2)
+        state_str = "state -> r1: %s, op: %s, r2: %s"
+        state = state_str % (self.reg_1, self.operand, self.reg_2)
         self.log_info(state)
 
     def ignore(self, i):
@@ -65,51 +78,52 @@ class SimpleCalculator():
 
         self.log_state()
 
-        if not self.r1_set:
-            self.r1 = 'NaN'
-        if not self.r2_set:
-            self.r2 = 'NaN'
+        if not self.reg_1_set:
+            self.reg_1 = 'NaN'
+        if not self.reg_2_set:
+            self.reg_2 = 'NaN'
 
         self.log_info("compute:")
 
         try:
-            if not self.op:
+            if not self.operand:
                 pass
-            elif self.op == '+':
-                self.r1 = self.r1 + self.r2
-            elif self.op == '-':
-                self.r1 = self.r1 - self.r2
-            elif self.op == '*':
-                self.r1 = self.r1 * self.r2
-            elif self.op == '/':
-                self.r1 = self.r1 / self.r2
-            elif self.op == 'abs':
-                self.r1 = abs(self.r1)
-            elif self.op == 'ceil':
-                self.r1 = math.ceil(self.r1)
-            elif self.op == 'fabs':
-                self.r1 = math.fabs(self.r1)
-            elif self.op == 'fmod':
-                self.r1 = math.fmod(self.r1, self.r2)
+            elif self.operand == '+':
+                self.reg_1 = self.reg_1 + self.reg_2
+            elif self.operand == '-':
+                self.reg_1 = self.reg_1 - self.reg_2
+            elif self.operand == '*':
+                self.reg_1 = self.reg_1 * self.reg_2
+            elif self.operand == '/':
+                self.reg_1 = self.reg_1 / self.reg_2
+            elif self.operand == 'abs':
+                self.reg_1 = abs(self.reg_1)
+            elif self.operand == 'ceil':
+                self.reg_1 = math.ceil(self.reg_1)
+            elif self.operand == 'fabs':
+                self.reg_1 = math.fabs(self.reg_1)
+            elif self.operand == 'fmod':
+                self.reg_1 = math.fmod(self.reg_1, self.reg_2)
 
-            self.r2_set = False
-            self.op = ""
+            self.reg_2_set = False
+            self.operand = ""
 
         except:
-                self.r1 = 'Error'
-                self.r1_set = False
-                self.r2_set = False
-                self.op = ""
+
+            self.reg_1 = 'Error'
+            self.reg_1_set = False
+            self.reg_2_set = False
+            self.operand = ""
 
         self.log_state()
-        self.log_info("result: %s" % str(self.r1))
+        self.log_info("result: %s" % str(self.reg_1))
 
-    def run(self, s):
+    def run(self, input_str):
 
-        self.s = s
-        self.s_list = s.split()
+        self.raw_str = input_str
+        self.s_list = input_str.split()
 
-        self.log_info("input string: %s" % self.s)
+        self.log_info("input string: %s" % self.raw_str)
         self.log_info("input list: %s" % str(self.s_list))
 
         while 1:
@@ -117,66 +131,60 @@ class SimpleCalculator():
             self.log_state()
 
             if len(self.s_list) == 0:
-                if not self.op:
+                if not self.operand:
                     break
                 else:
                     self.compute()
                     break
 
-            c = self.s_list[0]
+            chunk = self.s_list[0]
             self.s_list = self.s_list[1:]
 
-            if c in self.two_arg_funcs:
+            if chunk in self.two_arg_funcs:
 
-                if self.r1_set and not self.r2_set:
-                    self.op = c 
+                if self.reg_1_set and not self.reg_2_set:
+                    self.operand = chunk
 
-                elif self.r1_set and self.r2_set:
+                elif self.reg_1_set and self.reg_2_set:
                     self.compute()
-                    self.op = c
+                    self.operand = chunk
 
                 else:
-                    self.ignore(c)
+                    self.ignore(chunk)
 
-                #self.log_state()
+            elif chunk in self.one_arg_funcs:
 
-            elif c in self.one_arg_funcs:
-
-                if self.r1_set and not self.r2_set:
-                    self.op = c
+                if self.reg_1_set and not self.reg_2_set:
+                    self.operand = chunk
                     self.compute()
 
-                elif self.r1_set and self.r2_set:
+                elif self.reg_1_set and self.reg_2_set:
                     self.compute()
-                    self.op = c
+                    self.operand = chunk
                     self.compute()
 
                 else:
-                    self.ignore(c)
-
-                #self.log_state()
+                    self.ignore(chunk)
 
             else:
+
                 try:
-                    f = float(c)
+                    number = float(chunk)
 
-                    if self.r1_set and self.op and not self.r2_set:
-                        self.r2 = f
-                        self.r2_set = True
+                    if self.reg_1_set and self.operand and not self.reg_2_set:
+                        self.reg_2 = number
+                        self.reg_2_set = True
 
-                    elif self.r1_set and self.op and self.r2_set:
+                    elif self.reg_1_set and self.operand and self.reg_2_set:
                         self.compute()
-                        self.r1 = f
-                        self.r1_set = True
-                        self.r2_set = False
+                        self.reg_1 = number
+                        self.reg_1_set = True
+                        self.reg_2_set = False
 
                     else:
-                        self.r1 = f
-                        self.r1_set = True
-
-                    #self.log_state()
+                        self.reg_1 = number
+                        self.reg_1_set = True
 
                 except:
-                    self.ignore(c)
 
-                    #self.log_state()
+                    self.ignore(chunk)

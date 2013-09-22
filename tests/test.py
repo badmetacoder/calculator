@@ -107,12 +107,12 @@ class TestSimpleCalculatorAbs(unittest.TestCase):
     def test_abs_000(self):
         self.c.clear()
         self.c.run('1 abs')
-        self.assertEqual(self.c.lcd, 1.0)
+        self.assertEqual(self.c.lcd, 1)
 
     def test_abs_001(self):
         self.c.clear()
         self.c.run('-1 abs')
-        self.assertEqual(self.c.lcd, 1.0)
+        self.assertEqual(self.c.lcd, 1)
 
     def test_abs_002(self):
         self.c.clear()
