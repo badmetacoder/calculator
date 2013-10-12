@@ -16,9 +16,9 @@ Examples of usage:
 How?
 ----
 
-Clone this repo and tests:
+Clone this repo and test it:
 
-    $ python -m unittest test
+    $ nosetests tests/*.py
 
 All good?
 

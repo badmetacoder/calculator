@@ -4,6 +4,6 @@ setup(name='simplecalculator',
       author='Jacek Artymiak',
       author_email='jacek@artymiak.com',
       url='https://github.com/badmetacoder/calculator',
-      version='0.0.3',
+      version='0.0.4',
       py_modules=['calculator.simple'],
       )
