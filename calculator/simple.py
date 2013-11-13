@@ -8,10 +8,12 @@
 import math
 
 
-class SimpleCalculator():
+class SimpleCalculator(object):
+
     """Simple calculator class."""
 
     def __init__(self):
+
         """Intialize SimpleCalculator.
         """
 
@@ -30,6 +32,7 @@ class SimpleCalculator():
         self.clear()
 
     def clear(self):
+
         """Reset calculator."""
 
         # initialize
@@ -53,12 +56,14 @@ class SimpleCalculator():
         self.lcd = "0"
 
     def log_info(self, message):
+
         """Log a message."""
 
         self.log.append(message)
         self.lcd = self.reg_1
 
     def log_state(self):
+
         """Log calculator state."""
 
         state_str = "state -> r1: %s, op: %s, r2: %s"
@@ -66,6 +71,7 @@ class SimpleCalculator():
         self.log_info(state)
 
     def ignore(self, i):
+
         """Log something calculator ignored.
 
         :param i: ignored chunk
@@ -74,6 +80,7 @@ class SimpleCalculator():
         self.log_info("ignored: %s" % str(i))
 
     def compute(self):
+
         """Perform required computations."""
 
         self.log_state()
@@ -119,6 +126,9 @@ class SimpleCalculator():
         self.log_info("result: %s" % str(self.reg_1))
 
     def run(self, input_str):
+
+        """Execute the given string.
+        """
 
         self.raw_str = input_str
         self.s_list = input_str.split()
